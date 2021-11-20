@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use stdClass;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+            'username' => 'required',
+            'password' => 'required|min:8'
         ]);
 
-        $email = $request->input('email');
+        $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = User::where('email', $email)->first();
+        $user = User::where('username', $username)->first();
         if (!$user) {
             return response()->json(['message' => 'Login failed'], 401);
         }
@@ -33,7 +34,10 @@ class AuthController extends Controller
             'token' => $generateToken
         ]);
 
-        return response()->json($user);
+        $api = new \stdClass();
+
+        $api->data = $user;
+        return response()->json($api);
     }
 
     public function logout(Request $request){
