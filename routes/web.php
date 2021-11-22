@@ -30,7 +30,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/kategori', function () use ($router) {
         $listKategori = new stdClass();
         $results = app('db')->select("SELECT * FROM kategoris");
-        $listKategori->kategori = $request;
+        $listKategori->kategori = $result;
         return response()->json($listKategori);
     });
 
