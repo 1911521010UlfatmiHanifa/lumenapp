@@ -27,5 +27,15 @@ $router->post('/login','AuthController@login');
 
 
 $router->group(['middleware' => 'auth'], function() use ($router){
-    $router->post('/logout', 'AuthController@logout');
+    $router->get('api/kategori', function () use ($router) {
+        $results = app('db')->select("SELECT * FROM kategori");
+        return response()->json($results);
+    });
+
+    $router->get('api/barang', function () use ($router) {
+        $results = app('db')->select("SELECT * FROM barang");
+        return response()->json($results);
+    });
+
+    $router->post('api/logout', 'AuthController@logout');
 });
