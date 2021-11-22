@@ -28,14 +28,16 @@ $router->post('/login','AuthController@login');
 
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/kategori', function () use ($router) {
-        $results = app('db')->select("SELECT * FROM kategori");
-        return response()->json($results);
+        $listKategori = new stdClass();
+        $results = app('db')->select("SELECT * FROM kategoris");
+        $listKategori->kategori = $request;
+        return response()->json($listKategori);
     });
 
-    $router->get('api/barang', function () use ($router) {
-        $results = app('db')->select("SELECT * FROM barang");
-        return response()->json($results);
-    });
+    // $router->get('api/barang', function () use ($router) {
+    //     $results = app('db')->select("SELECT * FROM barangs WHERE id_kategori=?", );
+    //     return response()->json($results);
+    // });
 
     $router->post('api/logout', 'AuthController@logout');
 });
