@@ -17,11 +17,6 @@ $router->get('/', function () use ($router) {
     return ["Hello Hai..!!!"];
 });
 
-$router->get('/data', function () use ($router) {
-    $results = app('db')->select("SELECT * FROM barang");
-    return response()->json($results);
-});
-
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
