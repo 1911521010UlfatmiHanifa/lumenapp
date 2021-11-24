@@ -25,7 +25,7 @@ $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
     $results = app('db')->select("SELECT * FROM barangs where id_kategori=?", $id_kategori);
     $listBarang->barang = $results;
     return response()->json($listBarang);
-});y
+});
 
 
 $router->group(['middleware' => 'auth'], function() use ($router){
