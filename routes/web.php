@@ -20,6 +20,13 @@ $router->get('/', function () use ($router) {
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
+$router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
+    $listBarang = new stdClass();
+    $results = app('db')->select("SELECT * FROM barangs where id_kategori=?", $id_kategori);
+    $listBarang->barang = $results;
+    return response()->json($listBarang);
+});y
+
 
 $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/kategori', function () use ($router) {
@@ -29,12 +36,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listKategori);
     });
 
-    $router->get('api/barang', function () use ($router) {
-        $listBarang = new stdClass();
-        $results = app('db')->select("SELECT * FROM barangs");
-        $listBarang->barang = $results;
-        return response()->json($listBarang);
-    });
+    
 
     $router->post('api/logout', 'AuthController@logout');
 });
