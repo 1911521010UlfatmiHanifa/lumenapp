@@ -22,7 +22,7 @@ $router->post('/login','AuthController@login');
 
 $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
     $listBarang = new stdClass();
-    $results = app('db')->select("SELECT * FROM barangs where id_kategori=?", $id_kategori);
+    $results = app('db')->select("SELECT * FROM barangs where id_kategori=$id_kategori");
     $listBarang->barang = $results;
     return response()->json($listBarang);
 });
