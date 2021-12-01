@@ -12,7 +12,7 @@ class UserController extends Controller
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required|min:8',
-            'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
+            'no_hp' => 'required'
         ]);
         $username = $request->input('username');
         $no_hp = $request->input('no_hp');
