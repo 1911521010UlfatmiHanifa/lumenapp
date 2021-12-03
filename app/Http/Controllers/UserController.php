@@ -27,10 +27,10 @@ class UserController extends Controller
         return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
     }
 
-    public function show($token){
-        $data = User::find($token);
+    public function show($id){
+        $data = User::find($id);
         $listUser = new stdClass();
-        $listUser->AuthData = data;
+        $listUser->AuthData = $data;
         return return response()->json($listUser); 
     }
 }
