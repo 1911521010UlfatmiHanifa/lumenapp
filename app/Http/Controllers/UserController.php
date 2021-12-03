@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function show($id){
         $listUser = new stdClass();
-        $data = app('db')->select("SELECT * FROM users where id=$id");
+        $data = DB::select("SELECT * FROM users where id=$id");
         $listUser->AuthData = $data;
         return response()->json($listUser); 
     }
