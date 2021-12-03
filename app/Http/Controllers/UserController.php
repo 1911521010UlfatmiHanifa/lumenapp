@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
     }
 
     public function show($id){
-        $data = DB::select('select * from users where id = ?', $id)->get();
+        $data = DB::select('select * from users where id = ?', $id);
         $listUser = new stdClass();
         $listUser->AuthData = $data;
         return response()->json($listUser); 
