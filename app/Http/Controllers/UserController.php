@@ -28,11 +28,4 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
     }
-
-    public function show($id){
-        $listUser = new stdClass();
-        $data = DB::select('select username from users where id = ?', $id);
-        $listUser->AuthData = $data;
-        return response()->json($data); 
-    }
 }

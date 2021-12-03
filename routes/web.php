@@ -18,7 +18,6 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/register', 'UserController@register');
-$router->get('/user/{id}', 'UserController@show');
 $router->post('/login','AuthController@login');
 
 $router->group(['middleware' => 'auth'], function() use ($router){
@@ -27,6 +26,13 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         $results = app('db')->select("SELECT * FROM kategoris");
         $listKategori->kategori = $results;
         return response()->json($listKategori);
+    });
+
+    $router->get('api/user/{id}', function ($id) use ($router) {
+        $listUser = new stdClass();
+        $data = DB::select('select username from users where id = ?', $id);
+        $listUser->AuthData = $data;
+        return response()->json($data); 
     });
 
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
