@@ -31,7 +31,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/user/{id}', function ($id) use ($router) {
         $listUser = new stdClass();
         $data = app('db')->select("SELECT * FROM users where id=$id");
-        $listUser->AuthData = $data;
+        $listUser->data = $data;
         return response()->json($listUser); 
     });
 
