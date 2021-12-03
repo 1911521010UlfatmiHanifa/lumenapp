@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         $api = new \stdClass();
 
-        $api->data = $user;
+        $api->AuthData = $user;
         return response()->json($api);
     }
 
