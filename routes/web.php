@@ -32,7 +32,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         $listUser = new stdClass();
         $data = app('db')->select("SELECT * FROM users where id=$id");
         $listUser->AuthData = $data;
-        return response()->json($data); 
+        return response()->json($listUser); 
     });
 
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
