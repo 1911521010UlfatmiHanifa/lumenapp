@@ -12,7 +12,7 @@ class UserController extends Controller
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required|min:8',
-            'no_hp' => 'required'
+            'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
         ]);
         $username = $request->input('username');
         $no_hp = $request->input('no_hp');
@@ -25,5 +25,12 @@ class UserController extends Controller
         ]);
 
         return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
+    }
+
+    public function show($token){
+        $data = User::find($token);
+        $listUser = new stdClass();
+        $listUser->AuthData = data;
+        return return response()->json($listUser); 
     }
 }
