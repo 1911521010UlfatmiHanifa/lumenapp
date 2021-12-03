@@ -34,14 +34,14 @@ class AuthController extends Controller
             'token' => $generateToken
         ]);
 
-        $api = new stdClass();
+        $api = new \stdClass();
 
         $api->AuthData = $user;
         return response()->json($api);
     }
 
     public function logout(Request $request){
-        $user = Auth::user();
+        $user = \Auth::user();
         $user->token = null;
         $user->save();
 
