@@ -34,7 +34,7 @@ class UserController extends Controller
         // $data2 = DB::select("SELECT * FROM users where id=$id");
         $data2 = DB::table('users')
                 ->where('id', $id)->get();
-        $listUser->AuthData = $data2;
+        $listUser->user = $data2;
         return response()->json($listUser); 
     }
 }
