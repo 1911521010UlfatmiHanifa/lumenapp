@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/register', 'UserController@register');
-$router->get('/user', 'UserController@show');
+$router->get('/user/{token}', 'UserController@show');
 $router->post('/login','AuthController@login');
 
 $router->group(['middleware' => 'auth'], function() use ($router){
