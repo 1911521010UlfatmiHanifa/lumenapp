@@ -28,9 +28,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listKategori);
     });
 
-    $router->get('api/user/{id}', 'UserController@show') {
-        
-    });
+    $router->get('api/user/{id}', 'UserController@show');
 
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
         $listBarang = new stdClass();
