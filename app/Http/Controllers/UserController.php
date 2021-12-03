@@ -31,6 +31,6 @@ class UserController extends Controller
         $data = User::find($id);
         $listUser = new stdClass();
         $listUser->AuthData = $data;
-        return return response()->json($listUser); 
+        return response()->json($listUser); 
     }
 }
