@@ -28,11 +28,8 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listKategori);
     });
 
-    $router->get('api/user/{id}', function ($id) use ($router) {
-        $listUser = new stdClass();
-        $data = app('db')->select("SELECT * FROM users where id=$id");
-        $listUser->AuthData = $data;
-        return response()->json($listUser); 
+    $router->get('api/user/{id}', 'UserController@show') {
+        
     });
 
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
