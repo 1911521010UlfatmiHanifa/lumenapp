@@ -37,5 +37,12 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listBarang);
     });
 
+    $router->get('api/barang/{id_barang}', function ($id_barang) use ($router) {
+        $listBarang = new stdClass();
+        $results = app('db')->select("SELECT * FROM barangs where id_barang=$id_barang");
+        $listBarang->barang = $results;
+        return response()->json($listBarang);
+    });
+
     $router->post('api/logout', 'AuthController@logout');
 });
