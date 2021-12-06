@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function register(Request $request){
         $this->validate($request, [
-            'username' => 'required',
+            'username' => 'required|unique',
             'password' => 'required|min:8',
             'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
         ]);
