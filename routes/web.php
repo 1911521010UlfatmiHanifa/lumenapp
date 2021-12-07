@@ -47,12 +47,12 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/pesananSelesai', function () use ($router) {
         $listPesanan = new stdClass();
         $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
-                                    SUM((detail_transaksis.id_barang*jumlah*barangs.harga_barang)+biaya_kirim) 
+                                    (SUM(jumlah*harga_barang))+biaya_kirim AS SUM 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang 
                                     where status_transaksi='Diterima' or status_transaksi='Dibatalkan'
-                                    GROUP BY transaksis.id_transaksi ");
+                                    GROUP BY transaksis.id_transaksi");
         $listPesanan->pesanan = $results;
         return response()->json($listPesanan);
     });
@@ -60,13 +60,25 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/pesananProses', function () use ($router) {
         $listPesanan = new stdClass();
         $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
-                                    SUM((detail_transaksis.id_barang*jumlah*barangs.harga_barang)+biaya_kirim) 
+                                    (SUM(jumlah*harga_barang))+biaya_kirim AS SUM 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang where status_transaksi='Diproses'
                                     GROUP BY transaksis.id_transaksi");
         $listPesanan->pesanan = $results;
         return response()->json($listPesanan);
+    });
+
+    $router->get('api/detail_pesanan/{id_transaksi}', function ($id_transaksi) use ($router) {
+        $listDPesanan = new stdClass();
+        $results = app('db')->select("SELECT to_char(waktu, 'DD-Month-YYYY') AS tanggal, TO_CHAR(waktu, 'HH:mm:ss') AS waktu, alamat,
+                                    biaya_kirim, SUM(jumlah*barangs.harga_barang) AS subtotal,
+                                    (SUM(jumlah*harga_barang))+biaya_kirim AS total, status_transaksi
+                                    FROM transaksis JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
+                                    JOIN barangs ON barangs.id=detail_transaksis.id_barang
+                                    WHERE transaksis.id_transaksi=$id_transaksi GROUP BY transaksis.id_transaksi");
+        $listDPesanan->dpesanan = $results;
+        return response()->json($listDPesanan);
     });
 
     $router->post('api/logout', 'AuthController@logout');
