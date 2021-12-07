@@ -81,5 +81,10 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listDPesanan);
     });
 
+    $router->post('api/batalkanPesanan/{id_transaksi}', function ($id_transaksi) use ($router)){
+        $results = app('db')->update("UPDATE transaksis SET status_transaksi='Dibatalkan' WHERE id_transaksi=1UPDATE transaksis SET status_transaksi='Dibatalkan' WHERE id_transaksi=$id_transaksi");
+        return response()->json(['message' => 'Pesanan Berhasil Dibatalkan']);
+    }
+
     $router->post('api/logout', 'AuthController@logout');
 });
