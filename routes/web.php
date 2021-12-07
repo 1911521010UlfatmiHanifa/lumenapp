@@ -44,13 +44,26 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listBarang);
     });
 
-    $router->get('api/pesanan', function () use ($router) {
+    $router->get('api/pesananSelesai', function () use ($router) {
         $listPesanan = new stdClass();
         $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
                                     SUM(detail_transaksis.id_barang*jumlah*barangs.harga_barang) 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang 
+                                    where status_transaksi='Diterima' or status_transaksi='Dibatalkan'
+                                    GROUP BY transaksis.id_transaksi ");
+        $listPesanan->pesanan = $results;
+        return response()->json($listPesanan);
+    });
+
+    $router->get('api/pesananProses', function () use ($router) {
+        $listPesanan = new stdClass();
+        $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
+                                    SUM(detail_transaksis.id_barang*jumlah*barangs.harga_barang) 
+                                    from transaksis 
+                                    JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
+                                    JOIN barangs ON barangs.id=detail_transaksis.id_barang where status_transaksi='Diproses'
                                     GROUP BY transaksis.id_transaksi");
         $listPesanan->pesanan = $results;
         return response()->json($listPesanan);
