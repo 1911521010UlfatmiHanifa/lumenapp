@@ -47,7 +47,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/pesananSelesai', function () use ($router) {
         $listPesanan = new stdClass();
         $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
-                                    SUM(detail_transaksis.id_barang*jumlah*barangs.harga_barang) 
+                                    SUM((detail_transaksis.id_barang*jumlah*barangs.harga_barang)+biaya_kirim) 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang 
@@ -60,7 +60,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/pesananProses', function () use ($router) {
         $listPesanan = new stdClass();
         $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
-                                    SUM(detail_transaksis.id_barang*jumlah*barangs.harga_barang) 
+                                    SUM((detail_transaksis.id_barang*jumlah*barangs.harga_barang)+biaya_kirim) 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang where status_transaksi='Diproses'
