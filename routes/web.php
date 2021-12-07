@@ -44,5 +44,17 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listBarang);
     });
 
+    $router->get('api/pesanan', function () use ($router) {
+        $listPesanan = new stdClass();
+        $results = app('db')->select("SELECT transaksis.id_transaksi, status_transaksi, waktu, 
+                                    SUM(detail_transaksis.id_barang*jumlah*barangs.harga_barang) 
+                                    from transaksis 
+                                    JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
+                                    JOIN barangs ON barangs.id=detail_transaksis.id_barang 
+                                    GROUP BY transaksis.id_transaksi");
+        $listPesanan->pesanan = $results;
+        return response()->json($listPesanan);
+    });
+
     $router->post('api/logout', 'AuthController@logout');
 });
