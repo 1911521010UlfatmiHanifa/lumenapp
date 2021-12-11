@@ -40,7 +40,7 @@ class UserController extends Controller
         return response()->json($listUser); 
     }
 
-    public function dataDiri(Request $request, $id){
+    public function editDataDiri(Request $request, $id){
         $id = DB::table('users')
                 ->where('id', $id)->get();
         $tanggal_lahir = $request->input('tanggal_lahir');
