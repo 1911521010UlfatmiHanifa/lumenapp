@@ -40,12 +40,11 @@ class UserController extends Controller
     }
 
     public function editDataDiri(Request $request, $id){
-        $id = DB::table('users')
-                ->where('id', $id)->get();
+        $user = User::where('id', $id)->first();
         $tanggal_lahir = $request->input('tanggal_lahir');
         $no_hp = $request->input('no_hp');
         $jenis_kelamin = $request->input('jenis_kelamin');
-        $id -> update([
+        $user->update([
             'jenis_kelamin' => $jenis_kelamin,
             'tanggal_lahir' => $tanggal_lahir,
             'no_hp' => $no_hp
