@@ -39,4 +39,18 @@ class UserController extends Controller
         $listUser->user = $data2;
         return response()->json($listUser); 
     }
+
+    public function dataDiri(Request $request, $id){
+        $id = DB::table('users')
+                ->where('id', $id)->get();
+        $tanggal_lahir = $request->input('tanggal_lahir');
+        $no_hp = $request->input('no_hp');
+        $jenis_kelamin = $request->('jenis_kelamin');
+        $user -> update([
+            'jenis_kelamin' => $jenis_kelamin,
+            'tanggal_lahir' => $tanggal_lahir,
+            'no_hp' => $no_hp
+        ]);
+        return response()->json(['message' => 'Berhasil ubah kata sandi']);
+    }
 }
