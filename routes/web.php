@@ -85,7 +85,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/produkPesanan/{id_transaksi}', function ($id_transaksi) use ($router) {
         $listProdukPsn = new stdClass();
         $results = app('db')->select("SELECT id_barang, nama_barang, harga_barang, jumlah, gambar FROM detail_transaksis 
-                                        JOIN barangs ON barangs.id=detail_transaksis.id_barang WHERE id_transaksi=$id_transaksi;");
+                                        JOIN barangs ON barangs.id=detail_transaksis.id_barang WHERE id_transaksi=$id_transaksi");
         $listProdukPsn->prodpesan = $results;
         return response()->json($listProdukPsn);
     });
