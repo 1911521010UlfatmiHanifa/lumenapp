@@ -49,6 +49,6 @@ class UserController extends Controller
             'tanggal_lahir' => $tanggal_lahir,
             'no_hp' => $no_hp
         ]);
-        return response()->json(['message' => 'Berhasil ubah kata sandi']);
+        return response()->json(['message' => 'Berhasil edit data diri']);
     }
 }
