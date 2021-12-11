@@ -45,7 +45,7 @@ class UserController extends Controller
         $tanggal_lahir = $request->input('tanggal_lahir');
         $no_hp = $request->input('no_hp');
         $jenis_kelamin = $request->input('jenis_kelamin');
-        $user -> update([
+        $id -> update([
             'jenis_kelamin' => $jenis_kelamin,
             'tanggal_lahir' => $tanggal_lahir,
             'no_hp' => $no_hp
