@@ -19,11 +19,13 @@ class UserController extends Controller
         $username = $request->input('username');
         $no_hp = $request->input('no_hp');
         $password = Hash::make($request->input('password'));
+        $foto = "/img/default.png";
 
         $user = User::create([
             'username' => $username,
             'password' => $password,
-            'no_hp' => $no_hp
+            'no_hp' => $no_hp,
+            'foto' => $foto
         ]);
 
         return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
