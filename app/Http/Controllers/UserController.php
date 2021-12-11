@@ -33,7 +33,6 @@ class UserController extends Controller
 
     public function show($id){
         $listUser = new \stdClass();
-        // $data2 = DB::select("SELECT * FROM users where id=$id");
         $data2 = DB::table('users')
                 ->where('id', $id)->get();
         $listUser->user = $data2;
@@ -45,7 +44,7 @@ class UserController extends Controller
                 ->where('id', $id)->get();
         $tanggal_lahir = $request->input('tanggal_lahir');
         $no_hp = $request->input('no_hp');
-        $jenis_kelamin = $request->('jenis_kelamin');
+        $jenis_kelamin = $request->input('jenis_kelamin');
         $user -> update([
             'jenis_kelamin' => $jenis_kelamin,
             'tanggal_lahir' => $tanggal_lahir,
