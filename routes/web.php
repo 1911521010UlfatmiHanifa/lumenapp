@@ -52,7 +52,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id_transaksi=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang 
-                                    where status_transaksi='Diterima' or status_transaksi='Dibatalkan' and id_user=$id_user
+                                    where (status_transaksi='Diterima' and id_user=$id_user) or (status_transaksi='Dibatalkan' and id_user=$id_user)
                                     GROUP BY transaksis.id_transaksi");
         $listPesanan->pesanan = $results;
         return response()->json($listPesanan);
