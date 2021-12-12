@@ -40,6 +40,11 @@ class UserController extends Controller
     }
 
     public function editDataDiri(Request $request, $id){
+        $this->validate($request, [
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
+        ]);
         $user = User::where('id', $id)->first();
         $tanggal_lahir = $request->input('tanggal_lahir');
         $no_hp = $request->input('no_hp');
@@ -50,5 +55,19 @@ class UserController extends Controller
             'no_hp' => $no_hp
         ]);
         return response()->json(['message' => 'Berhasil edit data diri']);
+    }
+
+    public function ubahSandi(Request $request){
+        $this->validate($request, [
+            'passwordLama' => 'required',
+            'passwordBaru' => 'required'
+        ]);
+        $passwordLama = Hash::make($request->input('passwordLama'));
+        $user = User::where('password', $passwordLama)->first();
+        $passwordBaru = Hash::make($request->input('passwordBaru'));
+        $user->update([
+            'password' => $passwordBaru
+        ]);
+        return response()->json(['message' => 'Berhasil ubah kata sandi']);
     }
 }

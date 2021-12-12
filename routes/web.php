@@ -30,6 +30,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->get('api/user/{id}', 'UserController@show');
     $router->post('api/editDataUser/{id}', 'UserController@editDataDiri');
+    $router->post('api/ubahSandi', 'UserController@ubahSandi');
 
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
         $listBarang = new stdClass();
