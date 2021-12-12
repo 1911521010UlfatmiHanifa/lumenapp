@@ -69,7 +69,7 @@ class UserController extends Controller
             $user->update([
                 'password' => $passwordBaru
             ]);
-            return response()->json(['message' => 'Berhasil ubah kata sandi']);]
+            return response()->json(['message' => 'Berhasil ubah kata sandi']);
         }
     }
 }
