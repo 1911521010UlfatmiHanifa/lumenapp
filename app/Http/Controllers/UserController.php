@@ -57,17 +57,18 @@ class UserController extends Controller
         return response()->json(['message' => 'Berhasil edit data diri']);
     }
 
-    public function ubahSandi(Request $request){
+    public function ubahSandi(Request $request, $id){
         $this->validate($request, [
             'passwordLama' => 'required',
             'passwordBaru' => 'required'
         ]);
-        $passwordLama = Hash::make($request->input('passwordLama'));
-        $user = User::where('password', $passwordLama)->first();
-        $passwordBaru = Hash::make($request->input('passwordBaru'));
-        $user->update([
-            'password' => $passwordBaru
-        ]);
-        return response()->json(['message' => 'Berhasil ubah kata sandi']);
+        $user = User::where('id', $id)->first();
+        if(Hash::check($request->input('passwordLama', $user->password)){
+            $passwordBaru = Hash::make($request->input('passwordBaru'));
+            $user->update([
+                'password' => $passwordBaru
+            ]);
+            return response()->json(['message' => 'Berhasil ubah kata sandi']);]
+        }
     }
 }
