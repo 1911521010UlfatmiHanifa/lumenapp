@@ -63,7 +63,7 @@ class UserController extends Controller
             'passwordBaru' => 'required'
         ]);
         $user = User::where('id', $id)->first();
-        $passwordLama=Hash::make($request->input('passwordLama'));
+        $passwordLama = $request->input('passwordLama');
         if(Hash::check($passwordLama, $user->password)){
             $passwordBaru = Hash::make($request->input('passwordBaru'));
             $user->update([
