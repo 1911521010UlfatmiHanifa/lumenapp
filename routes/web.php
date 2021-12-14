@@ -91,7 +91,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listProdukPsn);
     });
 
-    $router->get('api/batalkanPesanan/{id_transaksi}', 'TransaksiController@batalkanPesan');
+    $router->post('api/batalkanPesanan/{id_transaksi}', 'TransaksiController@batalkanPesan');
 
     $router->post('api/logout', 'AuthController@logout');
 });

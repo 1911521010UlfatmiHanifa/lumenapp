@@ -10,19 +10,15 @@ use stdClass;
 
 class TransaksiController extends Controller
 {
-    public function batalkanPesan($id_transaksi)
+    public function batalkanPesanan($id_transaksi)
     {
-        $listUser = new \stdClass();
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
-        // $status = "Dibatalkan";
+        $status = "Dibatalkan";
 
-        // $transaksi->update([
-        //     'status_transaksi'=> $status
-        // ]);
+        $transaksi->update([
+            'status_transaksi'=> $status
+        ]);
 
-        // return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
-        
-        $listUser->user = $transaksi;
-        return response()->json($listUser); 
+        return response()->json(['message' => $status ]);
     }
 }
