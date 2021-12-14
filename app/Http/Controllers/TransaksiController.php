@@ -13,10 +13,9 @@ class TransaksiController extends Controller
     public function batalkanPesanan($id_transaksi)
     {
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
-        $status = 'Dibatalkan';
 
         $transaksi->update([
-            'status_transaksi' => $status
+            'status_transaksi' => "Dibatalkan"
         ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
