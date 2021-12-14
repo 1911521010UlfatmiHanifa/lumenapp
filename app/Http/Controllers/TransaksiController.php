@@ -15,10 +15,10 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
         $status = "Dibatalkan";
 
-        // $transaksi->update([
-        //     'alamat' => $status
-        // ]);
+        $transaksi->update([
+            'status_transaksi' => $status
+        ]);
 
-        return response()->json(['message' => $id_transaksi]);
+        return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
     }
 }
