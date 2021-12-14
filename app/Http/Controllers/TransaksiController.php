@@ -13,7 +13,7 @@ class TransaksiController extends Controller
     public function batalkanPesanan($id_transaksi)
     {
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
-        $status = "Dibatalkan";
+        $status = 'Dibatalkan';
 
         $transaksi->update([
             'status_transaksi' => $status
