@@ -12,6 +12,7 @@ class TransaksiController extends Controller
 {
     public function batalkanPesanan($id_transaksi)
     {
+        $listUser = new \stdClass();
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
         // $status = "Dibatalkan";
 
@@ -20,7 +21,7 @@ class TransaksiController extends Controller
         // ]);
 
         // return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
-        $listUser = new \stdClass();
+        
         $listUser->user = $transaksi;
         return response()->json($listUser); 
     }
