@@ -10,7 +10,7 @@ use stdClass;
 
 class TransaksiController extends Controller
 {
-    public function batalkanPesanan($id_transaksi)
+    public function batalkanPesan($id_transaksi)
     {
         $listUser = new \stdClass();
         $transaksi = Transaksi::where('id_transaksi', $id_transaksi)->first();
