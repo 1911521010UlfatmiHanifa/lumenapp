@@ -16,7 +16,7 @@ class TransaksiController extends Controller
         $status = "Dibatalkan";
 
         $transaksi->update([
-            'status_transaksi'=> $status
+            'status_transaksi' => $status
         ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
