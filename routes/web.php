@@ -39,6 +39,13 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listBarang);
     });
 
+    $router->get('api/keranjang/{id_user}', function ($id_user) use ($router) {
+        $listKeranjang = new stdClass();
+        $results = app('db')->select("SELECT * FROM keranjangs where id_user=$id_user");
+        $listKeranjang->keranjang = $results;
+        return response()->json($listKeranjang);
+    });
+
     $router->get('api/detail_barang/{id_barang}', function ($id_barang) use ($router) {
         $listBarang = new stdClass();
         $results = app('db')->select("SELECT * FROM barangs where id=$id_barang");
