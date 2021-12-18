@@ -22,6 +22,7 @@ $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
 $router->group(['middleware' => 'auth'], function() use ($router){
+
     $router->get('api/kategori', function () use ($router) {
         $listKategori = new stdClass();
         $results = app('db')->select("SELECT * FROM kategoris");
@@ -33,7 +34,8 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->post('api/editDataUser/{id}', 'UserController@editDataDiri');
     $router->post('api/ubahSandi/{id}', 'UserController@ubahSandi');
     $router->post('api/hapusBarangKeranjang/{id_user}/{id_barang}' , function ($id_user, $id_barang) use ($router){
-        $results = DB::delete('DELETE from keranjangs where id_user=$id_user and id_barang=$id_barang');
+        // $results = DB::delete('DELETE from keranjangs where id_user=$id_user and id_barang=$id_barang');
+        $results = DB::table('keranjangs')->where('id_user', $id_user)->orWhere('id_barang', $id_barang)->delete();
         return response()->json(['message' => 'Barang di Keranjang Berhasil Dihapus']);
     });
 
