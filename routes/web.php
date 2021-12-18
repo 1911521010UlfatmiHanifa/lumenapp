@@ -38,11 +38,13 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json(['message' => 'Barang di Keranjang Berhasil Dihapus']);
     });
 
-    $router->post('api/tambahBarangKeranjang/{id_user}/{id_barang}' , function ($id_user, $id_barang) use ($router){
+    $router->post('api/tambahBarangKeranjang/{id_user}/{id_barang}' , function (Request $request, $id_user, $id_barang) use ($router){
+        $this->validate($request, [
+            'jumlah' => 'required'
+        ]);
+        
         $jumlah = $request->input('jumlah');
-        return response()->json(['message' => ' ditambahkan ke keranjang']);
-
-
+        
         $keranjang = DB::table('keranjangs')->insert([
             'id_user' => $id_user,
             'id_barang' => $id_barang,
