@@ -44,6 +44,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         ]);
         
         $jumlah = $request->input('jumlah');
+        return response()->json(['message' => 'itambahkan ke keranjang']);
         
         $keranjang = DB::table('keranjangs')->insert([
             'id_user' => $id_user,
