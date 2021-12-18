@@ -33,7 +33,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->post('api/editDataUser/{id}', 'UserController@editDataDiri');
     $router->post('api/ubahSandi/{id}', 'UserController@ubahSandi');
     $router->post('api/hapusBarangKeranjang/{id_user}/{id_barang}' , function ($id_user, $id_barang) use ($router){
-        $results = DB::delete('DELETE keranjangs where id_user=$id_user and id_barang=$id_barang');
+        $results = DB::delete('DELETE from keranjangs where id_user=$id_user and id_barang=$id_barang');
         return response()->json(['message' => 'Barang di Keranjang Berhasil Dihapus']);
     });
 
