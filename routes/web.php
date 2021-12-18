@@ -40,6 +40,8 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->post('api/tambahBarangKeranjang/{id_user}/{id_barang}' , function ($id_user, $id_barang) use ($router){
         $jumlah = $request->input('jumlah');
+        return response()->json(['message' => ' ditambahkan ke keranjang']);
+
 
         $keranjang = DB::table('keranjangs')->insert([
             'id_user' => $id_user,
