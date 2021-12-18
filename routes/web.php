@@ -38,9 +38,21 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json(['message' => 'Barang di Keranjang Berhasil Dihapus']);
     });
 
+    $route->post('api/tambahBarangKeranjang/{id_user}/{id_barang}' , function ($id_user, $id_barang) use ($router){
+        $jumlah = $request->input('jumlah');
+
+        $keranjang = DB::table('keranjangs')->insert([
+            'id_user' => $id_user,
+            'id_barang' => $id_barang,
+            'jumlah' => $jumlah
+        ]);
+
+        return response()->json(['message' => 'Barang berhasil ditambahkan ke keranjang']);
+    });
+
     $router->get('api/barang/{id_kategori}', function ($id_kategori) use ($router) {
         $listBarang = new stdClass();
-        $results = app('db')->select("SELECT * FROM barangs where id_kategori=$id_kategori");
+        $results = app('db')->select("SELECT * FROM barangs WHERE id NOT IN (SELECT id_barang FROM keranjangs) AND id_kategori=$id_kategori");
         $listBarang->barang = $results;
         return response()->json($listBarang);
     });
