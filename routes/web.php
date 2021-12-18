@@ -41,7 +41,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->get('api/keranjang/{id_user}', function ($id_user) use ($router) {
         $listKeranjang = new stdClass();
-        $results = app('db')->select("SELECT * FROM keranjangs where id_user=$id_user");
+        $results = app('db')->select("SELECT id_barang, nama_barang, jumlah, harga_barang FROM keranjangs join barangs on keranjangs.id_barang=barangs.id where id_user=$id_user");
         $listKeranjang->keranjang = $results;
         return response()->json($listKeranjang);
     });
