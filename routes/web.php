@@ -55,7 +55,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json(['message' => 'Barang berhasil ditambahkan ke keranjang']);
     });
 
-    $router->get('api/barang/{id_kategori}', function ($id_kategori, $id_user) use ($router) {
+    $router->get('api/barang/{id_kategori}/{id_user}', function ($id_kategori, $id_user) use ($router) {
         $listBarang = new stdClass();
         $results = app('db')->select("SELECT * FROM barangs WHERE id NOT IN (SELECT id_barang FROM keranjangs WHERE id_user = $id_user) AND id_kategori=$id_kategori");
         $listBarang->barang = $results;
