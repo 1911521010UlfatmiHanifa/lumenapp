@@ -31,6 +31,13 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         return response()->json($listKategori);
     });
 
+    $router->get('api/avatar', function () use ($router) {
+        $listAvatar = new stdClass();
+        $results = app('db')->select("SELECT * FROM avatar");
+        $listAvatar->avatar = $results;
+        return response()->json($listAvatar);
+    });
+
     $router->get('api/user/{id}', 'UserController@show');
     $router->post('api/editDataUser/{id}', 'UserController@editDataDiri');
     $router->post('api/ubahSandi/{id}', 'UserController@ubahSandi');
