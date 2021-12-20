@@ -43,16 +43,19 @@ class UserController extends Controller
         $this->validate($request, [
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
+            'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'foto' => 'required'
         ]);
         $user = User::where('id', $id)->first();
         $tanggal_lahir = $request->input('tanggal_lahir');
         $no_hp = $request->input('no_hp');
         $jenis_kelamin = $request->input('jenis_kelamin');
+        $foto = $request->input('foto');
         $user->update([
             'jenis_kelamin' => $jenis_kelamin,
             'tanggal_lahir' => $tanggal_lahir,
-            'no_hp' => $no_hp
+            'no_hp' => $no_hp,
+            'foto' => $foto
         ]);
         return response()->json(['message' => 'Berhasil edit data diri']);
     }
