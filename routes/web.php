@@ -130,5 +130,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->post('api/batalkanPesanan/{id_transaksi}', 'TransaksiController@batalkanPesan');
 
+    $router->post('api/transaksi','TransaksiController@memesan');
+
     $router->post('api/logout', 'AuthController@logout');
 });
