@@ -28,7 +28,7 @@ class TransaksiController extends Controller
     public function memesan (Request $request)
     {
         $alamat = $request->input('alamat');
-        $waktu = $Carbon::now()->timestamp;
+        $waktu = Carbon::now()->timestamp;
         $biaya_kirim = $request->input('biaya_kirim');
         $status_transaksi = $request->input('status_transaksi');
         $id_user = $request->input('id_user');
