@@ -25,7 +25,7 @@ class TransaksiController extends Controller
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan' ]);
     }
 
-    public function memesan (Request $request)
+    public function memesan(Request $request)
     {
         $alamat = $request->input('alamat');
         $waktu = Carbon::now()->toDateTimeString();
@@ -34,27 +34,33 @@ class TransaksiController extends Controller
         $id_user = $request->input('id_user');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-        $jumlah= $request->input('jumlah');
-        $id_barang = $request->input('id_barang');
+
+
+        $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
 
         $transaksi = Transaksi::create([
-            'waktu' => $waktu, 
-            'alamat' => $alamat, 
-            'biaya_kirim' => $biaya_kirim, 
-            'status_transaksi' => $status_transaksi, 
-            'id_user' => $id_user, 
-            'latitude' => $latitude, 
+            'waktu' => $waktu,
+            'alamat' => $alamat,
+            'biaya_kirim' => $biaya_kirim,
+            'status_transaksi' => $status_transaksi,
+            'id_user' => $id_user,
+            'latitude' => $latitude,
             'longitude' => $longitude
         ]);
 
-        $dtransaksi = DetailTransaksi::create([
-            'id_transaksi' => $transaksi->id,
-            'id_barang' => $id_barang,
-            'jumlah' => $jumlah
-        ]);
+        foreach ($keranjang as $a) {
+            $id_barang = $a->id_barang;
+            $jumlah = $a->jumlah;
 
-        $keranjang = Keranjang::where('id_barang', $id_barang)->where('id_user', $id_user)->delete();
+            $dtransaksi = DetailTransaksi::create([
+                'id_transaksi' => $transaksi->id,
+                'id_barang' => $id_barang,
+                'jumlah' => $jumlah
+            ]);
 
-        return response()->json(['message' => 'Berhasil Memesan' ]);
+            Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
+        }
+
+        return response()->json(['message' => 'Berhasil Memesan']);
     }
 }
