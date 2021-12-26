@@ -52,6 +52,8 @@ class TransaksiController extends Controller
             $id_barang = $a->id_barang;
             $jumlah = $a->jumlah;
 
+            return response()->json(['message' => $id_barang]);
+
             $dtransaksi = DetailTransaksi::create([
                 'id_transaksi' => $transaksi->id,
                 'id_barang' => $id_barang,
