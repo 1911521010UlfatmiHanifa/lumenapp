@@ -53,7 +53,13 @@ class TransaksiController extends Controller
             $jumlah = $a->jumlah;
 
 
-            $dtransaksi = DetailTransaksi::create([
+            // $dtransaksi = DetailTransaksi::create([
+            //     'id_transaksi' => $transaksi->id,
+            //     'id_barang' => $id_barang,
+            //     'jumlah' => $jumlah
+            // ]);
+
+            $dtransaksi = DB::table('detail_transaksis')->insert([
                 'id_transaksi' => $transaksi->id,
                 'id_barang' => $id_barang,
                 'jumlah' => $jumlah
