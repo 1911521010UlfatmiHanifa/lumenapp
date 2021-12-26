@@ -38,7 +38,7 @@ class TransaksiController extends Controller
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
 
-        if (!$keranjang) {
+        if ($keranjang == []) {
             return response()->json(['message' => 'Barang Tidak Tersedia']);
         }
         
