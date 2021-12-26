@@ -48,8 +48,6 @@ class TransaksiController extends Controller
             'longitude' => $longitude
         ]);
 
-        return response()->json(['message' => $transaksi->id]);
-
         foreach ($keranjang as $a) {
             $id_barang = $a->id_barang;
             $jumlah = $a->jumlah;
