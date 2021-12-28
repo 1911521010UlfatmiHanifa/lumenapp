@@ -30,43 +30,36 @@ class TransaksiController extends Controller
         $alamat = $request->input('alamat');
         $waktu = Carbon::now()->toDateTimeString();
         $biaya_kirim = $request->input('biaya_kirim');
-        $status_transaksi = $request->input('status_transaksi');
+        $status_transaksi = "Diproses";
         $id_user = $request->input('id_user');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
+        $transaksi = Transaksi::create([
+            'waktu' => $waktu,
+            'alamat' => $alamat,
+            'biaya_kirim' => $biaya_kirim,
+            'status_transaksi' => $status_transaksi,
+            'id_user' => $id_user,
+            'latitude' => $latitude,
+            'longitude' => $longitude
+        ]);
 
-        if ($keranjang->isEmpty()) {
-            return response()->json(['message' => 'Barang Tidak Tersedia']);
-        }
-        
-        else {
-            $transaksi = Transaksi::create([
-                'waktu' => $waktu,
-                'alamat' => $alamat,
-                'biaya_kirim' => $biaya_kirim,
-                'status_transaksi' => $status_transaksi,
-                'id_user' => $id_user,
-                'latitude' => $latitude,
-                'longitude' => $longitude
+        foreach ($keranjang as $a) {
+            $id_barang = $a->id_barang;
+            $jumlah = $a->jumlah;
+
+            $dtransaksi = DB::table('detail_transaksis')->insert([
+                'id_transaksi' => $transaksi->id,
+                'id_barang' => $id_barang,
+                'jumlah' => $jumlah
             ]);
 
-            foreach ($keranjang as $a) {
-                $id_barang = $a->id_barang;
-                $jumlah = $a->jumlah;
-
-                $dtransaksi = DB::table('detail_transaksis')->insert([
-                    'id_transaksi' => $transaksi->id,
-                    'id_barang' => $id_barang,
-                    'jumlah' => $jumlah
-                ]);
-
-                Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
-            }
-
-            return response()->json(['message' => 'Berhasil Memesan']);
+            Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
+
+        return response()->json(['message' => 'Berhasil Memesan']);
     }
 }
