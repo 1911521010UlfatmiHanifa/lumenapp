@@ -14,8 +14,8 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS =>'{
     "to":"'.$user->FCMToken.'",
     "notification":{
-        "title":"'.$notifikasi->title.'",
-        "body":"'.$notifikasi->message.'"
+        "title":"'.$notip->title.'",
+        "body":"'.$notip->message.'"
     }
 }',
   CURLOPT_HTTPHEADER => array(
