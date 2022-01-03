@@ -43,7 +43,7 @@ $router->get('transaksi', function () use ($router) {
     return response()->json($listKategori);
 });
 
-$router->get('cekLogin', function ($token, $fcm_token) use ($router) {
+$router->get('cekLogin/{token}/{fcm_token}', function ($token, $fcm_token) use ($router) {
     $listCek = new stdClass();
     $results = app('db')->select("SELECT * FROM users where token='$token' and users.fcm_token='$fcm_token'");
     $listCek->UserCek = $results;
