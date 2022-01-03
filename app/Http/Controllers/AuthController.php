@@ -18,6 +18,7 @@ class AuthController extends Controller
 
         $username = $request->input('username');
         $password = $request->input('password');
+        $FCMToken = $request->input('FCMToken');
 
         $user = User::where('username', $username)->first();
         if (!$user) {
@@ -31,7 +32,8 @@ class AuthController extends Controller
 
         $generateToken = bin2hex(random_bytes(40));
         $user->update([
-            'token' => $generateToken
+            'token' => $generateToken,
+            'FCMToken' => $FCMToken
         ]);
 
         $api = new \stdClass();
