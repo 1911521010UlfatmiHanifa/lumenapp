@@ -45,6 +45,7 @@ class AuthController extends Controller
     public function logout(Request $request){
         $user = \Auth::user();
         $user->token = null;
+        $user->FCMToken = null;
         $user->save();
 
         return response()->json(['message' => 'Pengguna telah logout']);
