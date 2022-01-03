@@ -36,6 +36,20 @@ $router->get('transaksi', function () use ($router) {
     return response()->json($listKategori);
 });
 
+$router->get('transaksi', function () use ($router) {
+    $listKategori = new stdClass();
+    $results = app('db')->select("SELECT * FROM transaksis");
+    $listKategori->kategori = $results;
+    return response()->json($listKategori);
+});
+
+$router->get('cekLogin', function ($token, $fcm_token) use ($router) {
+    $listCek = new stdClass();
+    $results = app('db')->select("SELECT * FROM users where token='$token' and fcm_token='$fcm_token'");
+    $listCek->UserCek = $results;
+    return response()->json($listCek);
+});
+
 $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->post('api/notip/{id}', 'TransaksiController@notip');

@@ -18,7 +18,7 @@ class AuthController extends Controller
 
         $username = $request->input('username');
         $password = $request->input('password');
-        $FCMToken = $request->input('FCMToken');
+        $fcm_token = $request->input('fcm_token');
 
         $user = User::where('username', $username)->first();
         if (!$user) {
@@ -33,7 +33,7 @@ class AuthController extends Controller
         $generateToken = bin2hex(random_bytes(40));
         $user->update([
             'token' => $generateToken,
-            'FCMToken' => $FCMToken
+            'fcm_token' => $fcm_token
         ]);
 
         $api = new \stdClass();
@@ -45,7 +45,7 @@ class AuthController extends Controller
     public function logout(Request $request){
         $user = \Auth::user();
         $user->token = null;
-        $user->FCMToken = null;
+        $user->fcm_token = null;
         $user->save();
 
         return response()->json(['message' => 'Pengguna telah logout']);
