@@ -21,6 +21,12 @@ $router->get('/', function () use ($router) {
 
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
+$router->get('api/user', function () use ($router) {
+    $listKategori = new stdClass();
+    $results = app('db')->select("SELECT * FROM users");
+    $listKategori->kategori = $results;
+    return response()->json($listKategori);
+});
 
 $router->group(['middleware' => 'auth'], function() use ($router){
 
