@@ -30,6 +30,8 @@ $router->get('api/user', function () use ($router) {
 
 $router->group(['middleware' => 'auth'], function() use ($router){
 
+    $router->post('api/notip/{id}', 'TransaksiController@notip');
+
     $router->get('api/kategori', function () use ($router) {
         $listKategori = new stdClass();
         $results = app('db')->select("SELECT * FROM kategoris");

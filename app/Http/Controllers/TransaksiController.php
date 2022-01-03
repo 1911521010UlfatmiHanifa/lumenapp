@@ -62,4 +62,15 @@ class TransaksiController extends Controller
 
         return response()->json(['message' => 'Berhasil Memesan']);
     }
+
+    public function notip($id){
+        $transaksi = Transaksi::find($id);
+        $user = User::find($transaksi->id_user);
+
+        $notip = new stdClass();
+        $notip->title = "Pengingat Pesanan";
+        $notip->message = "Silahkan Jemput Pesanan Anda";
+
+        return view('notifikasi.notifikasi', compact('user', 'notip'));
+    }
 }
