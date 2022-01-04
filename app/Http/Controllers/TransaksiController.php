@@ -35,7 +35,7 @@ class TransaksiController extends Controller
         $id_user = $request->input('id_user');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-
+        $status_jemput = $request->input('status_jemput');
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
         $transaksi = Transaksi::create([
@@ -45,7 +45,8 @@ class TransaksiController extends Controller
             'status_transaksi' => $status_transaksi,
             'id_user' => $id_user,
             'latitude' => $latitude,
-            'longitude' => $longitude
+            'longitude' => $longitude,
+            'status_jemput' => $status_jemput
         ]);
 
         foreach ($keranjang as $a) {
