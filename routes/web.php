@@ -122,7 +122,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->get('api/pesananSelesai/{id_user}', function ($id_user) use ($router) {
         $listPesanan = new stdClass();
-        $results = app('db')->select("SELECT transaksis.id, status_transaksi, waktu, 
+        $results = app('db')->select("SELECT transaksis.id, status_transaksi, status_jemput, waktu, 
                                     (SUM(jumlah*harga_barang))+biaya_kirim AS SUM 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id=detail_transaksis.id_transaksi 
@@ -135,7 +135,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->get('api/pesananProses/{id_user}', function ($id_user) use ($router) {
         $listPesanan = new stdClass();
-        $results = app('db')->select("SELECT transaksis.id, status_transaksi, waktu, 
+        $results = app('db')->select("SELECT transaksis.id, status_transaksi, status_jemput, waktu, 
                                     (SUM(jumlah*harga_barang))+biaya_kirim AS SUM 
                                     from transaksis 
                                     JOIN detail_transaksis ON transaksis.id=detail_transaksis.id_transaksi 
@@ -149,7 +149,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         $listDPesanan = new stdClass();
         $results = app('db')->select("SELECT to_char(waktu, 'DD-Month-YYYY') AS tanggal, TO_CHAR(waktu, 'HH:mm:ss') AS waktu, alamat,
                                     biaya_kirim, SUM(jumlah*barangs.harga_barang) AS subtotal,
-                                    (SUM(jumlah*harga_barang))+biaya_kirim AS total, status_transaksi
+                                    (SUM(jumlah*harga_barang))+biaya_kirim AS total, status_transaksi, status_jemput,
                                     FROM transaksis JOIN detail_transaksis ON transaksis.id=detail_transaksis.id_transaksi 
                                     JOIN barangs ON barangs.id=detail_transaksis.id_barang
                                     WHERE transaksis.id=$id_transaksi GROUP BY transaksis.id");
