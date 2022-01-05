@@ -29,8 +29,8 @@ class TransaksiController extends Controller
 
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
-            'pesan' => $pesan,
-            'waktu' => $waktu
+            'waktu' => $waktu,
+            'pesan' => $pesan
         ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan' ]);
@@ -75,8 +75,8 @@ class TransaksiController extends Controller
 
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
-            'pesan' => $pesan,
-            'waktu' => $waktu
+            'waktu' => $waktu,
+            'pesan' => $pesan
         ]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
