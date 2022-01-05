@@ -27,7 +27,7 @@ class TransaksiController extends Controller
             'status_transaksi'=> $status
         ]);
 
-        return response()->json(['message' => 'Berhasil', $transaksi->id, $waktu, $pesan ]);
+        // return response()->json(['message' => 'Berhasil', $transaksi->id, $waktu, $pesan ]);
 
         $dtransaksi = DB::table('notifikasis')->insert([
             'id_transaksi' => $transaksi->id,
