@@ -50,8 +50,8 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/notifikasi', function () use ($router) {
         $listNotifikasi = new stdClass();
         $results = app('db')->select("SELECT * FROM notifikasisis");
-        $listKategori->kategori = $results;
-        return response()->json($listKategori);
+        $listNotifikasi->notifikasi = $results;
+        return response()->json($listNotifikasi);
     });
     
     $router->get('api/kategori', function () use ($router) {
