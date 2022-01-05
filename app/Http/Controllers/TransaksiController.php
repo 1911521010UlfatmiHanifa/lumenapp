@@ -29,7 +29,7 @@ class TransaksiController extends Controller
 
         return response()->json(['message' => 'Berhasil', $transaksi->id, $waktu, $pesan ]);
 
-        $notifikasi = Notifikasi::create([
+        $dtransaksi = DB::table('notifikasis')->insert([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
             'pesan' => $pesan
