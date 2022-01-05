@@ -35,7 +35,7 @@ class TransaksiController extends Controller
             'pesan' => $pesan
         ]);
 
-        return response()->json(['message' => 'Berhasil Membatalkan Pesanan', $transaksi->id, $waktu, $pesan ]);
+        return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
     }
 
     public function memesan(Request $request)
