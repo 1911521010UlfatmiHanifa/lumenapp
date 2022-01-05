@@ -73,6 +73,8 @@ class UserController extends Controller
                 'password' => $passwordBaru
             ]);
             return response()->json(['message' => 'Berhasil ubah kata sandi']);
+        }else{
+            return response()->json(['message' => 'Kata sandi lama tidak sesuai'], 401);
         }
     }
 }
