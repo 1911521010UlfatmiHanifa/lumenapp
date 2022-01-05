@@ -12,15 +12,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required',
             'password' => 'required|min:8'
         ]);
 
         $username = $request->input('username');
         $password = $request->input('password');
+        $no_hp = $request->input('no_hp');
         $fcm_token = $request->input('fcm_token');
 
-        $user = User::where('username', $username)->first();
+        $user = User::where('username', $username)->orWhere('no_hp', $no_hp)->first();
         if (!$user) {
             return response()->json(['message' => 'Login failed'], 401);
         }
