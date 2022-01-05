@@ -27,11 +27,11 @@ class TransaksiController extends Controller
             'status_transaksi'=> $status
         ]);
 
-        $notifikasi = Notifikasi::create([
-            'id_transaksi' => $transaksi->id,
-            'waktu' => $waktu,
-            'pesan' => $pesan
-        ]);
+        // $notifikasi = Notifikasi::create([
+        //     'id_transaksi' => $transaksi->id,
+        //     'waktu' => $waktu,
+        //     'pesan' => $pesan
+        // ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan' ]);
     }
