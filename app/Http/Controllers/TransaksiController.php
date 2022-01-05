@@ -6,6 +6,7 @@ use App\Models\Transaksi;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\User;
+use App\Models\Notifikasi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -16,11 +17,20 @@ class TransaksiController extends Controller
 {
     public function batalkanPesan($id_transaksi)
     {
+        $waktu = Carbon::now()->toDateTimeString();
+
         $transaksi = Transaksi::where('id', $id_transaksi)->first();
         $status = "Dibatalkan";
+        $pesan = "Pesanan Berhasil Dibatalkan";
 
         $transaksi->update([
             'status_transaksi'=> $status
+        ]);
+
+        $notifikasi = Notifikasi::create([
+            'id_transaksi' => $transaksi->id,
+            'pesan' => $pesan,
+            'waktu' => $waktu
         ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan' ]);
@@ -36,6 +46,7 @@ class TransaksiController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $status_jemput = $request->input('status_jemput');
+        $pesan = "Pesanan Berhasil Dibuat";
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
         $transaksi = Transaksi::create([
@@ -61,6 +72,12 @@ class TransaksiController extends Controller
 
             Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
+
+        $notifikasi = Notifikasi::create([
+            'id_transaksi' => $transaksi->id,
+            'pesan' => $pesan,
+            'waktu' => $waktu
+        ]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
     }

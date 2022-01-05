@@ -23,24 +23,17 @@ $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
 $router->get('api/user', function () use ($router) {
-    $listKategori = new stdClass();
+    $listUser = new stdClass();
     $results = app('db')->select("SELECT * FROM users");
-    $listKategori->kategori = $results;
-    return response()->json($listKategori);
+    $listUser->user = $results;
+    return response()->json($listUser);
 });
 
 $router->get('transaksi', function () use ($router) {
-    $listKategori = new stdClass();
+    $listTr = new stdClass();
     $results = app('db')->select("SELECT * FROM transaksis");
-    $listKategori->kategori = $results;
-    return response()->json($listKategori);
-});
-
-$router->get('transaksi', function () use ($router) {
-    $listKategori = new stdClass();
-    $results = app('db')->select("SELECT * FROM transaksis");
-    $listKategori->kategori = $results;
-    return response()->json($listKategori);
+    $listTr->transaksi = $results;
+    return response()->json($listTr);
 });
 
 $router->get('cekLogin/{token}/{fcm_token}', function ($token, $fcm_token) use ($router) {
