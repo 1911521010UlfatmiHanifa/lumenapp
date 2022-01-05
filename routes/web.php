@@ -47,9 +47,10 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->post('api/notip/{id}', 'TransaksiController@notip');
 
-    $router->get('api/notifikasi', function () use ($router) {
+    $router->get('api/notifikasi/{id_user}', function ($id_user) use ($router) {
         $listNotifikasi = new stdClass();
-        $results = app('db')->select("SELECT * FROM notifikasisis");
+        $results = app('db')->select("SELECT * FROM notifikasis join transaksis on transaksis.id=notifikasis.id_transaksi
+                                    where transaksis.id_user=$id_user");
         $listNotifikasi->notifikasi = $results;
         return response()->json($listNotifikasi);
     });
