@@ -27,8 +27,6 @@ class TransaksiController extends Controller
             'status_transaksi'=> $status
         ]);
 
-        // return response()->json(['message' => 'Berhasil Membatalkan Pesanan', $transaksi->id, $waktu, $pesan ]);
-
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,

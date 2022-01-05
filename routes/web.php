@@ -47,6 +47,13 @@ $router->group(['middleware' => 'auth'], function() use ($router){
 
     $router->post('api/notip/{id}', 'TransaksiController@notip');
 
+    $router->get('api/notifikasi', function () use ($router) {
+        $listNotifikasi = new stdClass();
+        $results = app('db')->select("SELECT * FROM notifikasisis");
+        $listKategori->kategori = $results;
+        return response()->json($listKategori);
+    });
+    
     $router->get('api/kategori', function () use ($router) {
         $listKategori = new stdClass();
         $results = app('db')->select("SELECT * FROM kategoris");
