@@ -52,7 +52,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
         $results = app('db')->select("SELECT notifikasis.id, to_char(notifikasis.waktu, 'DD-Month-YYYY') AS tanggal, TO_CHAR(notifikasis.waktu, 'HH:mm:ss') AS waktu, 
                                         notifikasis.id_transaksi, status_transaksi, notifikasis.pesan
                                         FROM notifikasis join transaksis on transaksis.id=notifikasis.id_transaksi
-                                        where transaksis.id_user=$id_user");
+                                        where transaksis.id_user=$id_user order by notifikasis.id");
         $listNotifikasi->notifikasi = $results;
         return response()->json($listNotifikasi);
     });
