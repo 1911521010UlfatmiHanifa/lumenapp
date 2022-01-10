@@ -102,6 +102,6 @@ class TransaksiController extends Controller
         $notip->title = "Pengingat Pesanan";
         $notip->message = "Silahkan Jemput Pesanan Anda";
 
-        return view('notifikasi.notifikasi', compact('user', 'notip'));
+        return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
 }
