@@ -21,6 +21,7 @@ class TransaksiController extends Controller
 
         $transaksi = Transaksi::where('id', $id_transaksi)->first();
         $status = "Dibatalkan";
+        $title = "Pembatalan Pesanan";
         $pesan = "Pesanan Berhasil Dibatalkan";
 
         $transaksi->update([
@@ -30,7 +31,8 @@ class TransaksiController extends Controller
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
-            'pesan' => $pesan
+            'pesan' => $pesan,
+            'title' => $title
         ]);
 
         return response()->json(['message' => 'Berhasil Membatalkan Pesanan']);
@@ -58,6 +60,7 @@ class TransaksiController extends Controller
             'longitude' => $longitude,
             'status_jemput' => $status_jemput
         ]);
+
         $user = User::find($id_user);
 
         foreach ($keranjang as $a) {
@@ -73,9 +76,9 @@ class TransaksiController extends Controller
             Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
 
-        $notip = new stdClass();
-        $notip->title = "Pengingat Pesanan";
-        $notip->message = "Silahkan Jemput Pesanan Anda";
+        // $notip = new stdClass();
+        // $notip->title = "Pengingat Pesanan";
+        // $notip->message = "Silahkan Jemput Pesanan Anda";
 
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
@@ -85,7 +88,7 @@ class TransaksiController extends Controller
         ]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
-        return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
+        // return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
 
     public function notip($id){
