@@ -50,7 +50,7 @@ class TransaksiController extends Controller
         $status_jemput = $request->input('status_jemput');
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
-        $transaksis = Transaksi::create([
+        $transaksi = Transaksi::create([
             'waktu' => $waktu,
             'alamat' => $alamat,
             'biaya_kirim' => $biaya_kirim,
@@ -75,8 +75,6 @@ class TransaksiController extends Controller
 
             Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
-
-        $transaksi = DB::table('transaksis')->max('id');
 
         $notip = new stdClass();
         $notip->title = "Pengingat Pesanan";
