@@ -14,7 +14,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS =>'{
     "to":"'.$user->fcm_token.'",
     "data" : {
-      "id_transaksi":"'.$transaksi_id.'"
+      "id_transaksi":"'.$transaksi->id.'"
     },
     "notification":{
         "title":"'.$notip->title.'",
