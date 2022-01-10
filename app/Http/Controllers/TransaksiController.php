@@ -58,6 +58,7 @@ class TransaksiController extends Controller
             'longitude' => $longitude,
             'status_jemput' => $status_jemput
         ]);
+        $user = User::find($id_user);
 
         foreach ($keranjang as $a) {
             $id_barang = $a->id_barang;
