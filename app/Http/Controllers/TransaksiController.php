@@ -76,15 +76,18 @@ class TransaksiController extends Controller
             Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
 
-        $notip = new stdClass();
-        $notip->title = "Pengingat Pesanan";
-        $notip->message = "Silahkan Jemput Pesanan Anda";
+        // $notip = new stdClass();
+        // $notip->title = "Pengingat Pesanan";
+        // $notip->message = "Silahkan Jemput Pesanan Anda";
+
+        $title = "Pengingat Pesanan";
+        $message = "Silahkan Jemput Pesanan Anda";
 
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
-            'pesan' => $notip->message,
-            'title' => $notip->title
+            'pesan' => $message,
+            'title' => $title
         ]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
@@ -99,6 +102,6 @@ class TransaksiController extends Controller
         $notip->title = "Pengingat Pesanan";
         $notip->message = "Silahkan Jemput Pesanan Anda";
 
-        return view('notifikasi.notifikasi', compact('user', 'notip'));
+        return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
 }
