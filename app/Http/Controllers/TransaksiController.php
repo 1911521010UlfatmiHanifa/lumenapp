@@ -83,7 +83,7 @@ class TransaksiController extends Controller
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
-            'pesan' => $notip->pesan,
+            'pesan' => $notip->message,
             'title' => $notip->title
         ]);
 
