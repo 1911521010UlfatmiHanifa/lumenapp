@@ -83,8 +83,6 @@ class TransaksiController extends Controller
             'title' => $title
         ]);
 
-        redirect()->route('api/notip/{id}', [$transaksi->id]);
-
         return response()->json(['message' => 'Berhasil Memesan']);
     }
 
@@ -93,8 +91,19 @@ class TransaksiController extends Controller
         $user = User::find($transaksi->id_user);
 
         $notip = new stdClass();
-        $notip->title = "Pengingat Pesanan";
+        $notip->title = "Pengingat Jemput Pesanan";
         $notip->message = "Silahkan Jemput Pesanan Anda";
+
+        return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
+    }
+
+    public function notipBatalPesanan($id){
+        $transaksi = Transaksi::find($id);
+        $user = User::find($transaksi->id_user);
+
+        $notip = new stdClass();
+        $notip->title = "Pembatalan Pesanan";
+        $notip->message = "Pesanan Anda Berhasil Dibatalkan";
 
         return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
