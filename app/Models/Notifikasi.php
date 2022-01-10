@@ -9,5 +9,5 @@ class Notifikasi extends Model
 {
     use HasFactory;
     protected $table = "notifikasis";
-    protected $fillable = ['id_transaksi', 'waktu', 'pesan'];
+    protected $fillable = ['id_transaksi', 'waktu', 'pesan', 'title'];
 }
