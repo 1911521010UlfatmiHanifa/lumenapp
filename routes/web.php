@@ -43,7 +43,7 @@ $router->get('cekLogin/{token}/{fcm_token}', function ($token, $fcm_token) use (
     return response()->json($listCek);
 });
 
-$router->post('api/notip/{id}', 'TransaksiController@notip');
+$router->post('api/notip/{id}', 'TransaksiController@notip')->name('notip');
 
 $router->group(['middleware' => 'auth'], function() use ($router){
 
