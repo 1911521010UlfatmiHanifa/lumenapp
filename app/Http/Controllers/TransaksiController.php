@@ -83,7 +83,7 @@ class TransaksiController extends Controller
             'title' => $title
         ]);
 
-        redirect()->route('notip', [$transaksi->id]);
+        redirect()->route('api/notip/{id}', [$transaksi->id]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
     }
