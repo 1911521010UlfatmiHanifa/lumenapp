@@ -46,7 +46,6 @@ class TransaksiController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $status_jemput = $request->input('status_jemput');
-        $pesan = "Pesanan Berhasil Dibuat";
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
         $transaksi = Transaksi::create([
@@ -73,13 +72,19 @@ class TransaksiController extends Controller
             Keranjang::where('id_user', $id_user)->where('id_barang', $id_barang)->delete();
         }
 
+        $notip = new stdClass();
+        $notip->title = "Pengingat Pesanan";
+        $notip->message = "Silahkan Jemput Pesanan Anda";
+
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
-            'pesan' => $pesan
+            'pesan' => $notip->pesan,
+            'title' => $notip->title
         ]);
 
         return response()->json(['message' => 'Berhasil Memesan']);
+        return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
 
     public function notip($id){
