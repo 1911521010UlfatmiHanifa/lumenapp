@@ -45,7 +45,7 @@ $router->get('cekLogin/{token}/{fcm_token}', function ($token, $fcm_token) use (
 
 $router->group(['middleware' => 'auth'], function() use ($router){
 
-    $router->post('api/notip/{id}', 'TransaksiController@notip');
+    $router->post('api/notip', 'TransaksiController@notip');
 
     $router->get('api/notifikasi/{id_user}', function ($id_user) use ($router) {
         $listNotifikasi = new stdClass();
