@@ -50,7 +50,7 @@ $router->group(['middleware' => 'auth'], function() use ($router){
     $router->get('api/notifikasi/{id_user}', function ($id_user) use ($router) {
         $listNotifikasi = new stdClass();
         $results = app('db')->select("SELECT notifikasis.id, to_char(notifikasis.waktu, 'DD-Month-YYYY') AS tanggal, TO_CHAR(notifikasis.waktu, 'HH:mm:ss') AS waktu, 
-                                        notifikasis.id_transaksi, status_transaksi, notifikasis.pesan, notifikasi.title
+                                        notifikasis.id_transaksi, status_transaksi, notifikasis.pesan, notifikasis.title
                                         FROM notifikasis join transaksis on transaksis.id=notifikasis.id_transaksi
                                         where transaksis.id_user=$id_user order by notifikasis.id desc");
         $listNotifikasi->notifikasi = $results;
