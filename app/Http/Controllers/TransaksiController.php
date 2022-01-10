@@ -48,6 +48,8 @@ class TransaksiController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $status_jemput = $request->input('status_jemput');
+        $pesan = "Transaksi Anda Berhasil Diproses";
+        $title = "Pengingat Transaksi";
 
         $keranjang = Keranjang::where('id_user', $id_user)->select('id_barang', 'jumlah')->get();
         $transaksi = Transaksi::create([
@@ -77,8 +79,8 @@ class TransaksiController extends Controller
         $notifikasi = Notifikasi::create([
             'id_transaksi' => $transaksi->id,
             'waktu' => $waktu,
-            'pesan' => $notip->pesan,
-            'title' => $notip->title
+            'pesan' => $pesan,
+            'title' => $title
         ]);
 
         $this->notip($transaksi->id);
