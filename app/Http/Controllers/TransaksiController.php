@@ -94,8 +94,8 @@ class TransaksiController extends Controller
         // return view('notifikasi.notifikasi', compact('user', 'notip', 'transaksi'));
     }
 
-    public function notip($id){
-        $transaksi = Transaksi::find($id);
+    public function notip(){
+        $transaksi = DB:table('transaksis')->max('id');
         $user = User::find($transaksi->id_user);
 
         $notip = new stdClass();
