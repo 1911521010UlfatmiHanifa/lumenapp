@@ -83,6 +83,8 @@ class TransaksiController extends Controller
             'title' => $title
         ]);
 
+        $this->notip($transaksi->id);
+
         return response()->json(['message' => 'Berhasil Memesan']);
     }
 
