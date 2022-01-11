@@ -31,7 +31,7 @@ $router->get('api/user', function () use ($router) {
 
 $router->get('transaksi', function () use ($router) {
     $listTr = new stdClass();
-    $results = app('db')->select("SELECT * FROM transaksis");
+    $results = app('db')->select("SELECT * FROM transaksis where status_transaksi='Diproses' and status_jemput='Jemput Langsung'");
     $listTr->transaksi = $results;
     return response()->json($listTr);
 });
