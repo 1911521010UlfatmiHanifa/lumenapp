@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Http\Controllers\TransaksiController;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\User;
@@ -83,7 +84,8 @@ class TransaksiController extends Controller
             'title' => $title
         ]);
 
-        $this->notip($transaksi->id);
+        $aa = new TransaksiController;
+        $aa->notip($transaksi->id);
 
         return response()->json(['message' => 'Berhasil Memesan']);
     }
